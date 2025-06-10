@@ -1,0 +1,14 @@
+package com.anthonycorp.reservapp.Utils.controllerAdvice;
+
+public enum ErrorCodes {
+    GENERIC_ERROR,
+    BAD_REQUEST_ERROR,
+    ENTITY_NOT_FOUND_ERROR,
+    INTERNAL_SERVER_ERROR,
+    INVALID_TOKEN,
+    TOKEN_EXPIRED,
+    EMAIL_ALREADY_IN_USE,
+    VALIDATION_ERROR,
+    MESSAGING_ERROR,
+    INVALID_CONTENT
+}
