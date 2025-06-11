@@ -4,8 +4,6 @@ import com.anthonycorp.reservapp.User.infrastructure.exception.EmailAlreadyInUse
 import com.anthonycorp.reservapp.User.infrastructure.exception.InvalidRole;
 import com.anthonycorp.reservapp.User.infrastructure.exception.RoleNotFound;
 import com.anthonycorp.reservapp.Utils.dto.ErrorDto;
-//import io.jsonwebtoken.ExpiredJwtException;
-//import io.jsonwebtoken.JwtException;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
@@ -97,6 +95,14 @@ public class ControllerAdvice {
         );
     }
 
+//    @ExceptionHandler(UsernameNotFoundException.class)
+//    public ResponseEntity<ErrorDto> handleUsernameNotFoundException( UsernameNotFoundException e) {
+//        return buildErrorResponse(
+//                e.getMessage(),
+//                ErrorCodes.BAD_REQUEST_ERROR,
+//                HttpStatus.BAD_REQUEST
+//        );
+//    }
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorDto> handleUsernameNotFoundException( UsernameNotFoundException e) {
         return buildErrorResponse(

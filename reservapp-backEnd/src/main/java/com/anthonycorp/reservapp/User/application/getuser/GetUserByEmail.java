@@ -1,7 +1,9 @@
 package com.anthonycorp.reservapp.User.application.getuser;
 
-import com.anthonycorp.reservapp.User.infrastructure.model.User;
+
+import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 
 public interface GetUserByEmail {
-    User execute(String email);
+    UserEntity execute(String email);
+
 }
