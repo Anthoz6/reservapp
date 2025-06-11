@@ -22,6 +22,10 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8335205 (Module User Updated)
     @Override
     public UserResponseDto execute(CreateUserDto createUserDto) {
         userRepository.findUserByEmail(createUserDto.getEmail())
@@ -29,7 +33,11 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         User user = userMapper.toEntity(createUserDto);
         Role role = roleRepository.findById(createUserDto.getRolId())
                 .orElseThrow(() -> new RoleNotFound("Rol with id: "+ createUserDto.getRolId() + " Not found"));
+<<<<<<< HEAD
         user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
+=======
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+>>>>>>> 8335205 (Module User Updated)
         user.setRole(role);
         User savedUser = userRepository.save(user);
         return userMapper.toDto(savedUser);
