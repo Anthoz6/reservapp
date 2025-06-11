@@ -28,7 +28,7 @@ Los accesos están protegidos con anotaciones como:
 
 ```java
 @PreAuthorize("hasRole('ADMIN')")
-
+```
 
 🔧 Funcionalidades implementadas
 ✅ Registro de usuarios
@@ -80,3 +80,5 @@ Lombok
 🔧 En desarrollo activo
 📁 Repositorio modular y limpio
 ✅ Listo para integración con frontend o pruebas en Postman
+
+
