@@ -15,27 +15,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-@PreAuthorize("denyAll()")
-
 public class UserController {
 
     private final CreateUserUseCase createUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
 
     @PostMapping()
-    @PreAuthorize("hasAnyAuthority('CREATE')")
     public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
         return new ResponseEntity<>(createUserUseCase.execute(createUserDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{userId}")
-    @PreAuthorize("hasAnyAuthority('READ')")
     public ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody @Valid UpdateUserDto updateUserDto) {
         return  new ResponseEntity<>(updateUserUseCase.execute(userId, updateUserDto), HttpStatus.OK);
     }
 
     @GetMapping()
-    @PreAuthorize("permitAll()")
     public String hello() {
         return "Hello World";
     }
