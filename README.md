@@ -30,7 +30,9 @@ Los accesos están protegidos con anotaciones como:
 @PreAuthorize("hasRole('ADMIN')")
 ```
 
-🔧 Funcionalidades implementadas
+---
+
+##🔧 Funcionalidades implementadas
 ✅ Registro de usuarios
 
 ✅ Encriptación de contraseñas con BCryptPasswordEncoder
@@ -45,14 +47,18 @@ Los accesos están protegidos con anotaciones como:
 
 🚧 [En progreso] Control de acceso personalizado por recurso
 
-🧠 Consideraciones
+---
+
+##🧠 Consideraciones
 Las contraseñas están protegidas con BCrypt, por lo tanto deben ser validadas adecuadamente en login.
 
 La autenticación actual se realiza por email.
 
 El sistema está preparado para integrar autenticación por tokens (JWT).
 
-🚀 Próximos pasos
+---
+
+##🚀 Próximos pasos
  Implementar autenticación JWT
 
  Añadir control de acceso por recurso (usuario solo puede editar su propia info)
@@ -62,23 +68,20 @@ El sistema está preparado para integrar autenticación por tokens (JWT).
  Módulo de reservas y gestión de disponibilidad
 
  Pruebas automatizadas con JUnit y MockMvc
+ 
+---
 
-🛠️ Tecnologías usadas
-Java 17
+##🛠️ Tecnologías usadas
+-Java 17
+-Spring Boot 3
+-Spring Security
+-JPA / Hibernate
+-PostgreSQL / MySQL (configurable)
+-Lombok
 
-Spring Boot 3
+---
 
-Spring Security
-
-JPA / Hibernate
-
-PostgreSQL / MySQL (configurable)
-
-Lombok
-
-📌 Estado
+##📌 Estado
 🔧 En desarrollo activo
 📁 Repositorio modular y limpio
 ✅ Listo para integración con frontend o pruebas en Postman
-
-
