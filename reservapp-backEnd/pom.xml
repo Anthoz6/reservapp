@@ -70,8 +70,6 @@
 			<scope>test</scope>
 		</dependency>
 
-<<<<<<< HEAD
-=======
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -99,7 +97,6 @@
 		</dependency>
 		-->
 
->>>>>>> 8335205 (Module User Updated)
 		<!-- MapStruct -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -124,7 +121,6 @@
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
-<<<<<<< HEAD
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -134,8 +130,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
-=======
->>>>>>> 8335205 (Module User Updated)
+
 		</dependency>
 	</dependencies>
 
