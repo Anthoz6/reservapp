@@ -1,8 +1,9 @@
 package com.anthonycorp.reservapp;
 
 import com.anthonycorp.reservapp.User.domain.Role.RoleEnum;
-import com.anthonycorp.reservapp.User.infrastructure.model.Role;
-import com.anthonycorp.reservapp.User.infrastructure.model.User;
+import com.anthonycorp.reservapp.User.infrastructure.model.RoleEntity;
+import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
+import com.anthonycorp.reservapp.User.infrastructure.repository.RoleRepository;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,24 +22,22 @@ public class ReservappApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(UserRepository userRepository) {
+	CommandLineRunner init(UserRepository userRepository, RoleRepository roleRepository) {
 		return	args -> {
 
 			/* Create Roles */
-			Role roleAdmin = Role.builder()
+			RoleEntity roleEntityAdmin = roleRepository.save(RoleEntity.builder()
 					.role(RoleEnum.ADMIN)
-					.build();
-
-			Role roleCustomer = Role.builder()
+					.build());
+			RoleEntity roleEntityCustomer = roleRepository.save(RoleEntity.builder()
 					.role(RoleEnum.CUSTOMER)
-					.build();
-
-			Role roleProvider = Role.builder()
+					.build());
+			RoleEntity roleEntityProvider = roleRepository.save(RoleEntity.builder()
 					.role(RoleEnum.PROVIDER)
-					.build();
+					.build());
 
 			/* Create Users */
-			User userAdmin = User.builder()
+			UserEntity userEntityAdmin = UserEntity.builder()
 					.name("admin")
 					.email("admin@gmail.com")
 					.password("passwordexample1@")
@@ -46,10 +45,10 @@ public class ReservappApplication {
 					.accountNonExpired(true)
 					.accountNonLocked(true)
 					.credentialsNonExpired(true)
-					.role(roleAdmin)
+					.roleEntity(roleEntityAdmin)
 					.build();
 
-			User userCustomer = User.builder()
+			UserEntity userEntityCustomer = UserEntity.builder()
 					.name("john doe")
 					.email("example@gmail.com")
 					.password("passwordexample10@")
@@ -57,10 +56,10 @@ public class ReservappApplication {
 					.accountNonExpired(true)
 					.accountNonLocked(true)
 					.credentialsNonExpired(true)
-					.role(roleCustomer)
+					.roleEntity(roleEntityCustomer)
 					.build();
 
-			User userProvider = User.builder()
+			UserEntity userEntityProvider = UserEntity.builder()
 					.name("taylor")
 					.email("taylor@gmail.com")
 					.password("passwordexample1@")
@@ -68,10 +67,10 @@ public class ReservappApplication {
 					.accountNonExpired(true)
 					.accountNonLocked(true)
 					.credentialsNonExpired(true)
-					.role(roleProvider)
+					.roleEntity(roleEntityProvider)
 					.build();
 
-			userRepository.saveAll(List.of(userAdmin, userProvider, userCustomer));
+			userRepository.saveAll(List.of(userEntityAdmin, userEntityProvider, userEntityCustomer));
 		};
 	}
 

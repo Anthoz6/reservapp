@@ -3,7 +3,7 @@ package com.anthonycorp.reservapp.User.application.updateuser;
 import com.anthonycorp.reservapp.User.domain.request.UpdateUserDto;
 import com.anthonycorp.reservapp.User.domain.response.UserResponseDto;
 import com.anthonycorp.reservapp.User.infrastructure.mapper.UserMapper;
-import com.anthonycorp.reservapp.User.infrastructure.model.User;
+import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +20,10 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
 
     @Override
     public UserResponseDto execute(Long userId, UpdateUserDto updateUserDto) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id "+ userId + " not found"));
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("UserEntity with id "+ userId + " not found"));
 
-        Optional.ofNullable(updateUserDto.getName()).ifPresent(user::setName); // Update name
-        return userMapper.toDto(userRepository.save(user));
+        Optional.ofNullable(updateUserDto.getName()).ifPresent(userEntity::setName); // Update name
+        return userMapper.toDto(userRepository.save(userEntity));
     }
 }

@@ -8,49 +8,36 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
 import org.springframework.security.access.prepost.PreAuthorize;
-=======
->>>>>>> 8335205 (Module User Updated)
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-<<<<<<< HEAD
 @PreAuthorize("denyAll()")
-=======
->>>>>>> 8335205 (Module User Updated)
+
 public class UserController {
 
     private final CreateUserUseCase createUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
 
     @PostMapping()
-<<<<<<< HEAD
     @PreAuthorize("hasAnyAuthority('CREATE')")
-=======
->>>>>>> 8335205 (Module User Updated)
     public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
         return new ResponseEntity<>(createUserUseCase.execute(createUserDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{userId}")
-<<<<<<< HEAD
     @PreAuthorize("hasAnyAuthority('READ')")
-=======
->>>>>>> 8335205 (Module User Updated)
     public ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody @Valid UpdateUserDto updateUserDto) {
         return  new ResponseEntity<>(updateUserUseCase.execute(userId, updateUserDto), HttpStatus.OK);
     }
 
-<<<<<<< HEAD
     @GetMapping()
     @PreAuthorize("permitAll()")
     public String hello() {
         return "Hello World";
     }
 
-=======
->>>>>>> 8335205 (Module User Updated)
 }

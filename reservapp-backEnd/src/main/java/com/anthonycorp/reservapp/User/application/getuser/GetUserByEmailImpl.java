@@ -1,6 +1,6 @@
 package com.anthonycorp.reservapp.User.application.getuser;
 
-import com.anthonycorp.reservapp.User.infrastructure.model.User;
+import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +13,8 @@ public class GetUserByEmailImpl implements GetUserByEmail {
     private final UserRepository userRepository;
 
     @Override
-    public User execute(String email) {
+    public UserEntity execute(String email) {
         return userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("User with email " + email+ " found"));
+                .orElseThrow(() -> new EntityNotFoundException("UserEntity with email " + email+ " found"));
     }
 }
