@@ -1,40 +1,30 @@
-🔐 Control de Acceso por Roles con Spring Security
-Este proyecto implementa un sistema de autenticación y autorización basado en roles, utilizando Spring Security. Actualmente, los endpoints están protegidos según el rol asignado al usuario, permitiendo controlar quién puede acceder a qué recursos dentro de la aplicación.
+# 📦 ReservApp - Gestión de Usuarios con Roles
 
-✅ Funcionalidades implementadas
-Carga de usuarios y roles desde base de datos.
+**ReservApp** es una plataforma de gestión de reservas que incluye un sistema robusto de control de usuarios con autenticación y autorización basada en roles. Este módulo representa la base del backend de la aplicación, construido con **Spring Boot** y enfocado en la seguridad y escalabilidad.
 
-Anotaciones @PreAuthorize para restringir el acceso a los endpoints.
+---
 
-UserDetailsService personalizado que integra los roles como GrantedAuthority.
+## 🔐 Seguridad y Manejo de Roles
 
-Control de endpoints basado en hasRole y hasAuthority.
+Se implementó control de acceso a los endpoints utilizando **Spring Security** con `@PreAuthorize`. Las contraseñas están encriptadas con `BCryptPasswordEncoder` para mayor seguridad.
 
-Uso de NoOpPasswordEncoder para pruebas en desarrollo.
+### Roles definidos
 
-🛡️ Ejemplos de protección de endpoints
-java
-Copiar
-Editar
+- `ADMIN` – Acceso completo a todos los endpoints.
+- `CUSTOMER` – Usuario cliente, acceso limitado a funcionalidades de reserva.
+- `PROVIDER` – Usuario proveedor, acceso a sus propios recursos.
+
+---
+
+## 📲 Endpoints y Permisos
+
+| Endpoint                  | Método | Rol permitido   | Descripción                                 |
+|--------------------------|--------|------------------|---------------------------------------------|
+| `/users`                 | `POST` | `ADMIN`          | Crear un nuevo usuario                      |
+| `/users/{userId}`        | `PATCH`| `ADMIN`          | Actualizar la información de un usuario     |
+| `/users`                 | `GET`  | Público           | Endpoint de prueba (Hello World)            |
+
+Los accesos están protegidos con anotaciones como:
+
+```java
 @PreAuthorize("hasRole('ADMIN')")
-@PatchMapping("/{userId}")
-public ResponseEntity<?> updateUser(...) {
-    ...
-}
-
-@PreAuthorize("hasAuthority('CREATE')")
-@PostMapping()
-public ResponseEntity<?> createUser(...) {
-    ...
-}
-Esto garantiza que solo usuarios con el rol ADMIN pueden actualizar, y solo quienes tengan el permiso CREATE pueden crear nuevos usuarios.
-
-🔍 Internamente
-Los roles están definidos en la entidad RoleEntity y relacionados con el usuario.
-
-Se convierten en SimpleGrantedAuthority para ser utilizados por Spring Security.
-
-La autenticación se realiza por correo electrónico, no por nombre de usuario.
-
-⚠️ En desarrollo
-Actualmente se usa NoOpPasswordEncoder solo con fines de desarrollo. Este encoder no debe usarse en producción, ya que las contraseñas no se encriptan. Se recomienda migrar a BCryptPasswordEncoder en etapas futuras.
