@@ -1,7 +1,7 @@
 package com.anthonycorp.reservapp.User.domain.Role;
 
-public enum Role {
-    CLIENTE,
-    PROVEEDOR,
+public enum RoleEnum {
+    CUSTOMER,
+    PROVIDER,
     ADMIN
 }
