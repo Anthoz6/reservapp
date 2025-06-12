@@ -37,6 +37,9 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/users").hasAnyRole("ADMIN", "PROVIDER", "CUSTOMER");
                     http.requestMatchers(HttpMethod.PATCH, "/users/{userId}").hasRole("ADMIN");
 
+                    //Services
+                    http.requestMatchers(HttpMethod.POST, "/services").hasRole("PROVIDER");
+
                     http.anyRequest().denyAll();
                 })
                 .build();
