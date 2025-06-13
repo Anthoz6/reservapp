@@ -5,6 +5,7 @@ import com.anthonycorp.reservapp.Service.domain.response.ServiceResponseDto;
 import com.anthonycorp.reservapp.Service.infrastructure.mapper.ServiceMapper;
 import com.anthonycorp.reservapp.Service.infrastructure.model.ServiceEntity;
 import com.anthonycorp.reservapp.Service.infrastructure.repository.ServiceRepository;
+import com.anthonycorp.reservapp.User.domain.Role.RoleEnum;
 import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,13 +23,15 @@ public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
     @Override
     public ServiceResponseDto execute(CreateServiceDto createServiceDto) {
         UserEntity provider = userRepository.findById(createServiceDto.getProviderId())
-                .orElseThrow(() -> new EntityNotFoundException("Provider not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Provider with ID " + createServiceDto.getProviderId() + " not found"));
+
+        // Verificar que su rol sea PROVIDER
+        if (provider.getRoleEntity() == null || !RoleEnum.PROVIDER.equals(provider.getRoleEntity().getRole())) {
+            throw new IllegalArgumentException("The user is not authorized to create services");
+        }
 
         ServiceEntity serviceEntity = serviceMapper.toEntity(createServiceDto, provider);
-
-        ServiceEntity saved = serviceRepository.save(serviceEntity);
-
-        return serviceMapper.toDto(saved);
+        return serviceMapper.toDto(serviceRepository.save(serviceEntity));
 
     }
 }
