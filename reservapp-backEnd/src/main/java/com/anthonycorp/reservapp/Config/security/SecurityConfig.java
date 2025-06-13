@@ -38,21 +38,12 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PATCH, "/users/{userId}").hasRole("ADMIN");
 
                     //Services
-                    http.requestMatchers(HttpMethod.POST, "/services").hasRole("PROVIDER");
+                    http.requestMatchers("/services/**").hasRole("PROVIDER");
 
                     http.anyRequest().denyAll();
                 })
                 .build();
     }
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        return httpSecurity
-//                .csrf(csrf -> csrf.disable())
-//                .httpBasic(Customizer.withDefaults())
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .build();
-//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
