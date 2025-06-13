@@ -38,8 +38,8 @@ Los accesos están protegidos con anotaciones como:
 - ✅ Encriptación de contraseñas con `BCryptPasswordEncoder`  
 - ✅ Carga de roles y autorización por endpoint  
 - ✅ Actualización parcial de usuarios con validación  
-- 🚧 [En progreso] Login con JWT  
-- 🚧 [En progreso] Módulo de reservas para `CUSTOMER` y `PROVIDER`  
+- ✅ Módulo de reservas para `CUSTOMER` y `PROVIDER`
+- 🚧 [En progreso] Login con JWT
 - 🚧 [En progreso] Control de acceso personalizado por recurso  
 
 ---
