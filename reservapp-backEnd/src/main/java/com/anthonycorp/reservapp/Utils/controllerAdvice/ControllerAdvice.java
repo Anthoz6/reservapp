@@ -1,5 +1,6 @@
 package com.anthonycorp.reservapp.Utils.controllerAdvice;
 
+import com.anthonycorp.reservapp.Service.infrastructure.exception.ServiceNotFoundException;
 import com.anthonycorp.reservapp.User.infrastructure.exception.EmailAlreadyInUse;
 import com.anthonycorp.reservapp.User.infrastructure.exception.InvalidRole;
 import com.anthonycorp.reservapp.User.infrastructure.exception.RoleNotFound;
@@ -95,6 +96,15 @@ public class ControllerAdvice {
         );
     }
 
+    @ExceptionHandler(ServiceNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleServiceNotFound(ServiceNotFoundException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.ENTITY_NOT_FOUND_ERROR,
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
 //    @ExceptionHandler(UsernameNotFoundException.class)
 //    public ResponseEntity<ErrorDto> handleUsernameNotFoundException( UsernameNotFoundException e) {
 //        return buildErrorResponse(
@@ -103,6 +113,7 @@ public class ControllerAdvice {
 //                HttpStatus.BAD_REQUEST
 //        );
 //    }
+
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorDto> handleUsernameNotFoundException( UsernameNotFoundException e) {
         return buildErrorResponse(
