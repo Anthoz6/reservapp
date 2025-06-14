@@ -28,6 +28,7 @@ Se implementó control de acceso a los endpoints utilizando **Spring Security** 
 | `/services/{serviceId}`                  | `DELETE` | `PROVIDER` (Dueño)   | Eliminar un servicio propio                                  |
 | `/services/provider/{providerId}`        | `GET`    | `CUSTOMER`, Público  | Obtener todos los servicios de un proveedor específico       |
 | `/services`                              | `GET`    | Público              | Obtener todos los servicios disponibles                      |
+| `/reservations`                       | `POST`    | `CUSTOMER`| Hacer una reserva a un servicio |
 
 Los accesos están protegidos con anotaciones como:
 
