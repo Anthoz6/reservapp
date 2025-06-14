@@ -34,9 +34,12 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/users").hasAnyRole("ADMIN", "PROVIDER", "CUSTOMER");
                     http.requestMatchers(HttpMethod.PATCH, "/users/{userId}").hasRole("ADMIN");
 
-                    //Services
+                    // Services
                     http.requestMatchers("/services/**").hasRole("PROVIDER");
 
+                    // Reservations
+                    http.requestMatchers("/reservations/**").hasRole("CUSTOMER");
+                    
                     http.anyRequest().denyAll();
                 })
                 .build();
