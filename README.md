@@ -18,11 +18,16 @@ Se implementó control de acceso a los endpoints utilizando **Spring Security** 
 
 ## 📲 Endpoints y Permisos
 
-| Endpoint                  | Método | Rol permitido   | Descripción                                 |
-|--------------------------|--------|------------------|---------------------------------------------|
-| `/users`                 | `POST` | `ADMIN`          | Crear un nuevo usuario                      |
-| `/users/{userId}`        | `PATCH`| `ADMIN`          | Actualizar la información de un usuario     |
-| `/users`                 | `GET`  | Público           | Endpoint de prueba (Hello World)            |
+| Endpoint                                 | Método   | Rol permitido       | Descripción                                                  |
+|------------------------------------------|----------|----------------------|--------------------------------------------------------------|
+| `/users`                                 | `POST`   | `ADMIN`              | Crear un nuevo usuario                                       |
+| `/users/{userId}`                        | `PATCH`  | `ADMIN`              | Actualizar la información de un usuario                      |
+| `/users`                                 | `GET`    | Público              | Endpoint de prueba (Hello World)                             |
+| `/services`                              | `POST`   | `PROVIDER`           | Crear un nuevo servicio (verifica que el usuario sea proveedor) |
+| `/services/{serviceId}`                  | `PATCH`  | `PROVIDER` (Dueño)   | Editar un servicio creado por el proveedor autenticado       |
+| `/services/{serviceId}`                  | `DELETE` | `PROVIDER` (Dueño)   | Eliminar un servicio propio                                  |
+| `/services/provider/{providerId}`        | `GET`    | `CUSTOMER`, Público  | Obtener todos los servicios de un proveedor específico       |
+| `/services`                              | `GET`    | Público              | Obtener todos los servicios disponibles                      |
 
 Los accesos están protegidos con anotaciones como:
 
@@ -38,8 +43,8 @@ Los accesos están protegidos con anotaciones como:
 - ✅ Encriptación de contraseñas con `BCryptPasswordEncoder`  
 - ✅ Carga de roles y autorización por endpoint  
 - ✅ Actualización parcial de usuarios con validación  
-- 🚧 [En progreso] Login con JWT  
-- 🚧 [En progreso] Módulo de reservas para `CUSTOMER` y `PROVIDER`  
+- ✅ Módulo de reservas para `CUSTOMER` y `PROVIDER`
+- 🚧 [En progreso] Login con JWT
 - 🚧 [En progreso] Control de acceso personalizado por recurso  
 
 ---
