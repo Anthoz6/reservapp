@@ -1,9 +1,6 @@
 package com.anthonycorp.reservapp.Reservation.domain.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,6 +8,7 @@ import java.time.LocalTime;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationResponseDto {
@@ -18,7 +16,7 @@ public class ReservationResponseDto {
     private String customerName;
     private String providerName;
     private String serviceTitle;
-    private LocalDate date;
-    private LocalTime time;
+    private String date;
+    private String time;
     private String status;
 }

@@ -17,12 +17,15 @@ public interface ServiceMapper {
     })
 
     ServiceResponseDto toDto(ServiceEntity serviceEntity);
-    default ServiceEntity toEntity(CreateServiceDto createServiceDto, UserEntity provider) {
-        ServiceEntity serviceEntity = new ServiceEntity();
-        serviceEntity.setTitle(createServiceDto.getTitle());
-        serviceEntity.setDescription(createServiceDto.getDescription());
-        serviceEntity.setPrice(createServiceDto.getPrice());
-        serviceEntity.setProvider(provider);
-        return serviceEntity;
+
+    default ServiceEntity toEntity(CreateServiceDto dto, UserEntity provider) {
+        return ServiceEntity.builder()
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .price(dto.getPrice())
+                .provider(provider)
+                .build();
     }
+
 }
+

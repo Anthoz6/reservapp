@@ -1,6 +1,7 @@
 package com.anthonycorp.reservapp.Service.infrastructure.controller;
 
 import com.anthonycorp.reservapp.Service.application.createservice.CreateServiceUseCase;
+import com.anthonycorp.reservapp.Service.application.getallservices.GetAllServicesUseCase;
 import com.anthonycorp.reservapp.Service.application.getservicesbyprovider.GetServicesByProviderUseCase;
 import com.anthonycorp.reservapp.Service.application.updateservice.UpdateServiceUseCase;
 import com.anthonycorp.reservapp.Service.application.deleteservice.DeleteServiceUseCase;
@@ -24,6 +25,7 @@ public class ServiceController {
     private final DeleteServiceUseCase deleteServiceUseCase;
     private final UpdateServiceUseCase updateServiceUseCase;
     private final GetServicesByProviderUseCase getServicesByProviderUseCase;
+    private final GetAllServicesUseCase getAllServicesUseCase;
 
     @PostMapping
     public ResponseEntity<?> createService(@RequestBody @Valid CreateServiceDto createServiceDto) {
@@ -47,6 +49,12 @@ public class ServiceController {
     @GetMapping("/provider/{providerId}")
     public ResponseEntity<List<ServiceResponseDto>> getByProvider(@PathVariable Long providerId) {
         return ResponseEntity.ok(getServicesByProviderUseCase.execute(providerId));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ServiceResponseDto>> getAllServices() {
+        List<ServiceResponseDto> services = getAllServicesUseCase.execute();
+        return ResponseEntity.ok(services);
     }
 
 }

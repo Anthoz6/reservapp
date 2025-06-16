@@ -38,7 +38,10 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PATCH, "/users/{userId}").hasRole("ADMIN");
 
                     // Services
-                    http.requestMatchers("/services/**").hasRole("PROVIDER");
+                    http.requestMatchers(HttpMethod.GET, "/services/**").hasAnyRole("CUSTOMER", "PROVIDER");
+                    http.requestMatchers(HttpMethod.POST, "/services/**").hasRole("PROVIDER");
+                    http.requestMatchers(HttpMethod.PATCH, "/services/**").hasRole("PROVIDER");
+                    http.requestMatchers(HttpMethod.DELETE, "/services/**").hasRole("PROVIDER");
 
                     // Reservations
                     http.requestMatchers("/reservations/**").hasRole("CUSTOMER");
@@ -65,5 +68,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
