@@ -26,10 +26,17 @@ Se implementó control de acceso a los endpoints utilizando **Spring Security** 
 | `/services`                              | `POST`   | `PROVIDER`           | Crear un nuevo servicio (verifica que el usuario sea proveedor) |
 | `/services/{serviceId}`                  | `PATCH`  | `PROVIDER` (Dueño)   | Editar un servicio creado por el proveedor autenticado       |
 | `/services/{serviceId}`                  | `DELETE` | `PROVIDER` (Dueño)   | Eliminar un servicio propio                                  |
+<<<<<<< HEAD
 | `/services/provider/{providerId}`        | `GET`    | `CUSTOMER` Público  | Obtener todos los servicios de un proveedor específico       |
 | `/services`                              | `GET`    | `CUSTOMER` Público | Obtener todos los servicios disponibles                      |
 | `/reservations`                       | `POST`    | `CUSTOMER`| Hacer una reserva a un servicio |
 | `/reservations/me`                       | `GET`    | `CUSTOMER`| Ver las reservas hechas |
+=======
+| `/services/provider/{providerId}`        | `GET`    | `CUSTOMER`, Público  | Obtener todos los servicios de un proveedor específico       |
+| `/services`                              | `GET`    | Público              | Obtener todos los servicios disponibles                      |
+| `/reservations`                       | `POST`    | `CUSTOMER`| Hacer una reserva a un servicio |
+
+>>>>>>> dev
 
 Los accesos están protegidos con anotaciones como:
 

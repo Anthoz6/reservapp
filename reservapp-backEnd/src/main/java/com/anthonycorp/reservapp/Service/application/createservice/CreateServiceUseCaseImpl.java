@@ -9,10 +9,12 @@ import com.anthonycorp.reservapp.User.domain.Role.RoleEnum;
 import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
 
