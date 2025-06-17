@@ -1,5 +1,4 @@
 package com.anthonycorp.reservapp.User.infrastructure.repository;
-
 import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

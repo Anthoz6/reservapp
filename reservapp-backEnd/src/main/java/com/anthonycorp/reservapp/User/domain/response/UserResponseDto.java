@@ -1,6 +1,8 @@
 package com.anthonycorp.reservapp.User.domain.response;
 
+
 import com.anthonycorp.reservapp.User.infrastructure.model.RoleEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -16,5 +16,6 @@ public class GetUserByEmailImpl implements GetUserByEmail {
     public UserEntity execute(String email) {
         return userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("UserEntity with email " + email+ " found"));
+
     }
 }

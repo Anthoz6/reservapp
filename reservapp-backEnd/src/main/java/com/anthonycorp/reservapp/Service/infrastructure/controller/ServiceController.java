@@ -36,7 +36,7 @@ public class ServiceController {
     public ResponseEntity<ServiceResponseDto> updateService(@PathVariable Long serviceId,
                                                             @RequestParam Long providerId,
                                                             @RequestBody @Valid UpdateServiceDto updateServiceDto) {
-        return ResponseEntity.ok(updateServiceUseCase.execute(serviceId, providerId, updateServiceDto));
+        return new ResponseEntity<>(updateServiceUseCase.execute(serviceId, providerId, updateServiceDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{serviceId}")
@@ -48,13 +48,13 @@ public class ServiceController {
 
     @GetMapping("/provider/{providerId}")
     public ResponseEntity<List<ServiceResponseDto>> getByProvider(@PathVariable Long providerId) {
-        return ResponseEntity.ok(getServicesByProviderUseCase.execute(providerId));
+        return new ResponseEntity<>(getServicesByProviderUseCase.execute(providerId), HttpStatus.OK);
     }
 
     @GetMapping()
     public ResponseEntity<List<ServiceResponseDto>> getAllServices() {
         List<ServiceResponseDto> services = getAllServicesUseCase.execute();
-        return ResponseEntity.ok(services);
+        return new ResponseEntity<>((services), HttpStatus.OK);
     }
 
 }

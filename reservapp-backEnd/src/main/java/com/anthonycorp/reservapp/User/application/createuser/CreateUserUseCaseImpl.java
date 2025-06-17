@@ -5,8 +5,10 @@ import com.anthonycorp.reservapp.User.domain.response.UserResponseDto;
 import com.anthonycorp.reservapp.User.infrastructure.exception.EmailAlreadyInUse;
 import com.anthonycorp.reservapp.User.infrastructure.exception.RoleNotFound;
 import com.anthonycorp.reservapp.User.infrastructure.mapper.UserMapper;
+
 import com.anthonycorp.reservapp.User.infrastructure.model.RoleEntity;
 import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
+
 import com.anthonycorp.reservapp.User.infrastructure.repository.RoleRepository;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +36,6 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         userEntity.setRoleEntity(roleEntity);
         UserEntity savedUserEntity = userRepository.save(userEntity);
         return userMapper.toDto(savedUserEntity);
+
     }
 }
