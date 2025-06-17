@@ -29,9 +29,4 @@ public class UserController {
         return  new ResponseEntity<>(updateUserUseCase.execute(userId, updateUserDto), HttpStatus.OK);
     }
 
-    @GetMapping()
-    public String hello() {
-        return "Hello World";
-    }
-
 }

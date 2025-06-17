@@ -4,7 +4,6 @@ import com.anthonycorp.reservapp.Reservation.application.createsreservation.Crea
 import com.anthonycorp.reservapp.Reservation.application.getmyreservations.GetMyReservationsUseCase;
 import com.anthonycorp.reservapp.Reservation.domain.request.CreateReservationDto;
 import com.anthonycorp.reservapp.Reservation.domain.response.ReservationResponseDto;
-import com.anthonycorp.reservapp.Reservation.infrastructure.model.ReservationEntity;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,6 +36,6 @@ public class ReservationController {
     public ResponseEntity<List<ReservationResponseDto>> getMyReservationsAsCustomer(Authentication authentication) {
         String email = authentication.getName();
         List<ReservationResponseDto> reservations = getMyReservationsUseCase.getReservationAsCustomer(email);
-        return ResponseEntity.ok(reservations);
+        return new ResponseEntity<>((reservations), HttpStatus.OK);
     }
 }

@@ -105,15 +105,6 @@ public class ControllerAdvice {
         );
     }
 
-//    @ExceptionHandler(UsernameNotFoundException.class)
-//    public ResponseEntity<ErrorDto> handleUsernameNotFoundException( UsernameNotFoundException e) {
-//        return buildErrorResponse(
-//                e.getMessage(),
-//                ErrorCodes.BAD_REQUEST_ERROR,
-//                HttpStatus.BAD_REQUEST
-//        );
-//    }
-
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorDto> handleUsernameNotFoundException( UsernameNotFoundException e) {
         return buildErrorResponse(
