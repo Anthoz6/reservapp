@@ -1,4 +1,4 @@
-package com.anthonycorp.reservapp.Service.application.deleteservice;
+package com.anthonycorp.reservapp.Service.application.DeleteService;
 
 import com.anthonycorp.reservapp.Service.infrastructure.exception.ServiceNotFoundException;
 import com.anthonycorp.reservapp.Service.infrastructure.repository.ServiceRepository;

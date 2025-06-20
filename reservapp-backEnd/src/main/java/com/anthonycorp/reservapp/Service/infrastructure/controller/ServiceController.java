@@ -1,10 +1,10 @@
 package com.anthonycorp.reservapp.Service.infrastructure.controller;
 
-import com.anthonycorp.reservapp.Service.application.createservice.CreateServiceUseCase;
-import com.anthonycorp.reservapp.Service.application.getallservices.GetAllServicesUseCase;
-import com.anthonycorp.reservapp.Service.application.getservicesbyprovider.GetServicesByProviderUseCase;
-import com.anthonycorp.reservapp.Service.application.updateservice.UpdateServiceUseCase;
-import com.anthonycorp.reservapp.Service.application.deleteservice.DeleteServiceUseCase;
+import com.anthonycorp.reservapp.Service.application.CreateService.CreateServiceUseCase;
+import com.anthonycorp.reservapp.Service.application.GetAllServices.GetAllServicesUseCase;
+import com.anthonycorp.reservapp.Service.application.GetServicesByProvider.GetServicesByProviderUseCase;
+import com.anthonycorp.reservapp.Service.application.UpdateService.UpdateServiceUseCase;
+import com.anthonycorp.reservapp.Service.application.DeleteService.DeleteServiceUseCase;
 import com.anthonycorp.reservapp.Service.domain.request.CreateServiceDto;
 import com.anthonycorp.reservapp.Service.domain.request.UpdateServiceDto;
 import com.anthonycorp.reservapp.Service.domain.response.ServiceResponseDto;

@@ -1,6 +1,6 @@
 package com.anthonycorp.reservapp.Config.security;
 
-import com.anthonycorp.reservapp.User.application.userdetails.UserDetailsServiceImpl;
+import com.anthonycorp.reservapp.User.application.UserDetails.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

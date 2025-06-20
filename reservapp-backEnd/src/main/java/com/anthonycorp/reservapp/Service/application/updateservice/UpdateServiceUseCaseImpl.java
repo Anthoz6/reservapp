@@ -1,4 +1,4 @@
-package com.anthonycorp.reservapp.Service.application.updateservice;
+package com.anthonycorp.reservapp.Service.application.UpdateService;
 
 import com.anthonycorp.reservapp.Service.domain.request.UpdateServiceDto;
 import com.anthonycorp.reservapp.Service.domain.response.ServiceResponseDto;
@@ -6,7 +6,6 @@ import com.anthonycorp.reservapp.Service.infrastructure.exception.ServiceNotFoun
 import com.anthonycorp.reservapp.Service.infrastructure.mapper.ServiceMapper;
 import com.anthonycorp.reservapp.Service.infrastructure.model.ServiceEntity;
 import com.anthonycorp.reservapp.Service.infrastructure.repository.ServiceRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
