@@ -1,7 +1,7 @@
 package com.anthonycorp.reservapp.Reservation.infrastructure.controller;
 
-import com.anthonycorp.reservapp.Reservation.application.createsreservation.CreateReservationUseCase;
-import com.anthonycorp.reservapp.Reservation.application.getmyreservations.GetMyReservationsUseCase;
+import com.anthonycorp.reservapp.Reservation.application.CreateReservation.CreateReservationUseCase;
+import com.anthonycorp.reservapp.Reservation.application.GetMyReservations.GetMyReservationsUseCase;
 import com.anthonycorp.reservapp.Reservation.domain.request.CreateReservationDto;
 import com.anthonycorp.reservapp.Reservation.domain.response.ReservationResponseDto;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.anthonycorp.reservapp.Service.application.getservicesbyprovider;
+package com.anthonycorp.reservapp.Service.application.GetServicesByProvider;
 
 import com.anthonycorp.reservapp.Service.domain.response.ServiceResponseDto;
 

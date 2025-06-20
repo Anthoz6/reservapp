@@ -1,7 +1,7 @@
 package com.anthonycorp.reservapp.User.infrastructure.controller;
 
-import com.anthonycorp.reservapp.User.application.createuser.CreateUserUseCase;
-import com.anthonycorp.reservapp.User.application.updateuser.UpdateUserUseCase;
+import com.anthonycorp.reservapp.User.application.CreateUser.CreateUserUseCase;
+import com.anthonycorp.reservapp.User.application.UpdateUser.UpdateUserUseCase;
 import com.anthonycorp.reservapp.User.domain.request.CreateUserDto;
 import com.anthonycorp.reservapp.User.domain.request.UpdateUserDto;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.anthonycorp.reservapp.User.application.getuser;
+package com.anthonycorp.reservapp.User.application.GetUser;
 
 import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;

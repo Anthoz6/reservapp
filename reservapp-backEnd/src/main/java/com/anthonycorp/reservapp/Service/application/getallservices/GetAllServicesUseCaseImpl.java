@@ -1,4 +1,4 @@
-package com.anthonycorp.reservapp.Service.application.getallservices;
+package com.anthonycorp.reservapp.Service.application.GetAllServices;
 
 import com.anthonycorp.reservapp.Service.domain.response.ServiceResponseDto;
 import com.anthonycorp.reservapp.Service.infrastructure.mapper.ServiceMapper;

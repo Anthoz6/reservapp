@@ -1,4 +1,4 @@
-package com.anthonycorp.reservapp.Reservation.application.createsreservation;
+package com.anthonycorp.reservapp.Reservation.application.CreateReservation;
 
 import com.anthonycorp.reservapp.Reservation.domain.request.CreateReservationDto;
 import com.anthonycorp.reservapp.Reservation.domain.response.ReservationResponseDto;

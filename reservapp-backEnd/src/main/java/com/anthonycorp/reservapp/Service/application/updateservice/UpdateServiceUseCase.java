@@ -1,4 +1,4 @@
-package com.anthonycorp.reservapp.Service.application.updateservice;
+package com.anthonycorp.reservapp.Service.application.UpdateService;
 
 import com.anthonycorp.reservapp.Service.domain.request.UpdateServiceDto;
 import com.anthonycorp.reservapp.Service.domain.response.ServiceResponseDto;
