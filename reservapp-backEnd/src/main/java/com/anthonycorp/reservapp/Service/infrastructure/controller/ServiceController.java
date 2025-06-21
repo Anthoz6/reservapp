@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,21 +30,27 @@ public class ServiceController {
     private final GetAllServicesUseCase getAllServicesUseCase;
 
     @PostMapping
-    public ResponseEntity<?> createService(@RequestBody @Valid CreateServiceDto createServiceDto) {
-        return new ResponseEntity<>(createServiceUseCase.execute(createServiceDto), HttpStatus.CREATED);
+    public ResponseEntity<?> createService(@RequestBody @Valid CreateServiceDto createServiceDto,
+                                           Authentication authentication) {
+        String email = authentication.getName();
+        ServiceResponseDto responseDto = createServiceUseCase.execute(createServiceDto, email);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @PatchMapping("/{serviceId}")
     public ResponseEntity<ServiceResponseDto> updateService(@PathVariable Long serviceId,
-                                                            @RequestParam Long providerId,
-                                                            @RequestBody @Valid UpdateServiceDto updateServiceDto) {
-        return new ResponseEntity<>(updateServiceUseCase.execute(serviceId, providerId, updateServiceDto), HttpStatus.OK);
+                                                            @RequestBody @Valid UpdateServiceDto updateServiceDto,
+                                                            Authentication authentication) {
+        String providerEmail = authentication.getName();
+        ServiceResponseDto responseDto = updateServiceUseCase.execute(serviceId, providerEmail, updateServiceDto);
+        return ResponseEntity.ok(responseDto);
     }
 
     @DeleteMapping("/{serviceId}")
     public ResponseEntity<Void> deleteService(@PathVariable Long serviceId,
-                                              @RequestParam Long providerId) {
-        deleteServiceUseCase.execute(serviceId, providerId);
+                                              Authentication authentication) {
+        String providerEmail = authentication.getName(); // Basic Auth
+        deleteServiceUseCase.execute(serviceId, providerEmail);
         return ResponseEntity.noContent().build();
     }
 

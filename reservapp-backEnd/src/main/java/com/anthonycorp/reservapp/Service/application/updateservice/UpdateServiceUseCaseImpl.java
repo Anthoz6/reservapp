@@ -6,6 +6,8 @@ import com.anthonycorp.reservapp.Service.infrastructure.exception.ServiceNotFoun
 import com.anthonycorp.reservapp.Service.infrastructure.mapper.ServiceMapper;
 import com.anthonycorp.reservapp.Service.infrastructure.model.ServiceEntity;
 import com.anthonycorp.reservapp.Service.infrastructure.repository.ServiceRepository;
+import com.anthonycorp.reservapp.User.infrastructure.exception.UserNotFoundException;
+import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +19,18 @@ public class UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
 
     private final ServiceRepository serviceRepository;
     private final ServiceMapper serviceMapper;
+    private final UserRepository userRepository;
 
     @Override
-    public ServiceResponseDto execute(Long serviceId, Long providerId, UpdateServiceDto updateServiceDto) {
+    public ServiceResponseDto execute(Long serviceId, String providerEmail, UpdateServiceDto updateServiceDto) {
+
+        var provider = userRepository.findUserByEmail(providerEmail)
+                .orElseThrow(() -> new UserNotFoundException("Provider not found"));
+
         ServiceEntity service = serviceRepository.findById(serviceId)
                 .orElseThrow(() -> new ServiceNotFoundException("Service with ID "+ serviceId + " not found"));
 
-        if (!service.getProvider().getId().equals(providerId)) {
+        if (!service.getProvider().getId().equals(provider.getId())) {
             throw new IllegalArgumentException("You are not authorized to update this service");
         }
 

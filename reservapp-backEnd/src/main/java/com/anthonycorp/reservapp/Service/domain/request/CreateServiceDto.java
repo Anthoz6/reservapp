@@ -22,7 +22,4 @@ public class CreateServiceDto {
     @NotNull(message = "The price is mandatory")
     @Min(value = 0, message = "The price must be greater than or equal to 0")
     private Double price;
-
-    @NotNull(message = "The supplier ID is mandatory")
-    private Long providerId;
 }
