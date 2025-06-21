@@ -12,11 +12,11 @@ public class DeleteServiceUseCaseImpl implements DeleteServiceUseCase {
     private final ServiceRepository serviceRepository;
 
     @Override
-    public void execute(Long serviceId, Long providerId) {
+    public void execute(Long serviceId, String providerEmail) {
         var service = serviceRepository.findById(serviceId)
                 .orElseThrow(() -> new ServiceNotFoundException("Service with ID " + serviceId + " not found"));
 
-        if(!service.getProvider().getId().equals(providerId)) {
+        if(!service.getProvider().getEmail().equals(providerEmail)) {
             throw new IllegalArgumentException("You are not authorized to delete this service");
         }
 
