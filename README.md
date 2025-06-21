@@ -47,8 +47,8 @@ Los accesos están protegidos con anotaciones como:
 - ✅ Carga de roles y autorización por endpoint  
 - ✅ Actualización parcial de usuarios con validación    
 - ✅ Módulo de reservas para `CUSTOMER` y `PROVIDER`
+- ✅ Control de acceso personalizado por recurso  
 - 🚧 [En progreso] Login con JWT
-- 🚧 [En progreso] Control de acceso personalizado por recurso  
 
 ---
 
