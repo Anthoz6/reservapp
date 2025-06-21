@@ -24,10 +24,8 @@ public class ReservationController {
     private final GetMyReservationsUseCase getMyReservationsUseCase;
 
     @PostMapping
-    public ResponseEntity<ReservationResponseDto> createReservation(
-            @Valid @RequestBody CreateReservationDto dto) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public ResponseEntity<ReservationResponseDto> createReservation(@Valid @RequestBody CreateReservationDto dto,
+                                                                    Authentication authentication) {
         String email = authentication.getName();
         ReservationResponseDto response = createReservationUseCase.execute(email, dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
