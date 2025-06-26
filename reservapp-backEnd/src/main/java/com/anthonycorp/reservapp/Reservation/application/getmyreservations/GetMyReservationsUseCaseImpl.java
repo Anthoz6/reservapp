@@ -6,9 +6,11 @@ import com.anthonycorp.reservapp.User.infrastructure.exception.UserNotFoundExcep
 import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,11 +20,12 @@ public class GetMyReservationsUseCaseImpl implements GetMyReservationsUseCase {
     private final ReservationRepository reservationRepository;
     private final UserRepository userRepository;
 
+    @Async
     @Override
-    public List<ReservationResponseDto> getReservationAsCustomer(String email) {
+    public CompletableFuture<List<ReservationResponseDto>> getReservationAsCustomer(String email) {
         UserEntity user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Authenticated user not found"));
-        return reservationRepository.findByCustomer(user)
+        List<ReservationResponseDto> responseList =  reservationRepository.findByCustomer(user)
                 .stream()
                 .map(reservation -> ReservationResponseDto.builder()
                         .id(reservation.getId())
@@ -34,5 +37,7 @@ public class GetMyReservationsUseCaseImpl implements GetMyReservationsUseCase {
                         .status(reservation.getStatus().toString())
                         .build())
                 .collect(Collectors.toList());
+
+        return CompletableFuture.completedFuture(responseList);
     }
 }

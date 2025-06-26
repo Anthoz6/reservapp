@@ -23,7 +23,7 @@ public class ServiceEntity {
 
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provider_id")
     private UserEntity provider;
 }
