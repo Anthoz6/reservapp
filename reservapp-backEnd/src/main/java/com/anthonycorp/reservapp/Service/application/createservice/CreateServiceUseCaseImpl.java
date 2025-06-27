@@ -12,7 +12,10 @@ import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Builder
@@ -23,8 +26,9 @@ public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
     private final UserRepository userRepository;
     private final ServiceMapper serviceMapper;
 
+    @Async
     @Override
-    public ServiceResponseDto execute(CreateServiceDto createServiceDto, String providerEmail) {
+    public CompletableFuture<ServiceResponseDto> execute(CreateServiceDto createServiceDto, String providerEmail) {
         UserEntity provider = userRepository.findUserByEmail(providerEmail)
                 .orElseThrow(() -> new UserNotFoundException("Provider not found"));
 
@@ -35,7 +39,7 @@ public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
                 .provider(provider)
                 .build();
 
-        return serviceMapper.toDto(serviceRepository.save(serviceEntity));
-
+        ServiceResponseDto responseDto = serviceMapper.toDto(serviceRepository.save(serviceEntity));
+        return CompletableFuture.completedFuture(responseDto);
     }
 }
