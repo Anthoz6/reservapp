@@ -47,8 +47,7 @@ Los accesos están protegidos con anotaciones como:
 - ✅ Carga de roles y autorización por endpoint  
 - ✅ Actualización parcial de usuarios con validación    
 - ✅ Módulo de reservas para `CUSTOMER` y `PROVIDER`
-- ✅ Control de acceso personalizado por recurso
-- ✅ Módulo de reservas y gestión de disponibilidad  
+- ✅ Control de acceso personalizado por recurso  
 - 🚧 [En progreso] Login con JWT
 
 ---
@@ -65,14 +64,15 @@ Los accesos están protegidos con anotaciones como:
 
 - [ ] Implementar autenticación JWT  
 - [ ] Añadir control de acceso por recurso (el usuario solo puede editar su propia información)  
-- [ ] Documentación automática con Swagger/OpenAPI   
+- [ ] Documentación automática con Swagger/OpenAPI  
+- [ ] Módulo de reservas y gestión de disponibilidad  
 - [ ] Pruebas automatizadas con JUnit y MockMvc  
 
 ---
 
 ## 🛠️ Tecnologías usadas
 
-- Java 21  
+- Java 17  
 - Spring Boot 3  
 - Spring Security  
 - JPA / Hibernate  

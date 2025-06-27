@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
     private final UserRepository userRepository;
 
     @Override
-    public ServiceResponseDto execute(Long serviceId, String providerEmail, UpdateServiceDto updateServiceDto) {
+    public CompletableFuture<ServiceResponseDto> execute(Long serviceId, String providerEmail, UpdateServiceDto updateServiceDto) {
 
         var provider = userRepository.findUserByEmail(providerEmail)
                 .orElseThrow(() -> new UserNotFoundException("Provider not found"));
@@ -38,6 +39,8 @@ public class UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
         Optional.ofNullable(updateServiceDto.getDescription()).ifPresent(service::setDescription);
         Optional.ofNullable(updateServiceDto.getPrice()).ifPresent(service::setPrice);
 
-        return serviceMapper.toDto(serviceRepository.save(service));
+        ServiceResponseDto responseDto = serviceMapper.toDto(serviceRepository.save(service));
+
+        return CompletableFuture.completedFuture(responseDto);
     }
 }
