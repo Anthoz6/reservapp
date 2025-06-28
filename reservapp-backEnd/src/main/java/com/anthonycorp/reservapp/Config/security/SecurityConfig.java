@@ -3,6 +3,7 @@ package com.anthonycorp.reservapp.Config.security;
 import com.anthonycorp.reservapp.Config.web.filter.JwtTokenValidator;
 import com.anthonycorp.reservapp.User.application.UserDetails.UserDetailsServiceImpl;
 import com.anthonycorp.reservapp.Utils.web.JwtUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,10 +35,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+
                     http.requestMatchers(HttpMethod.GET,"/users").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/users").hasAnyRole("ADMIN", "PROVIDER", "CUSTOMER");
                     http.requestMatchers(HttpMethod.PATCH, "/users/{userId}").hasRole("ADMIN");
@@ -53,6 +54,16 @@ public class SecurityConfig {
                     
                     http.anyRequest().denyAll();
                 })
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((req, res, ex) -> {
+                            System.out.println("AUTH ERROR: " + ex.getMessage());
+                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+                        })
+                        .accessDeniedHandler((req, res, ex) -> {
+                            System.out.println("ACCESS DENIED: " + ex.getMessage());
+                            res.sendError(HttpServletResponse.SC_FORBIDDEN, ex.getMessage());
+                        })
+                )
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();
     }

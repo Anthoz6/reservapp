@@ -24,17 +24,17 @@ public class ReservationController {
     private final GetMyReservationsUseCase getMyReservationsUseCase;
 
     @PostMapping
-    public CompletableFuture<ResponseEntity<ReservationResponseDto>> createReservation(@Valid @RequestBody CreateReservationDto dto,
-                                                                                       Authentication authentication) {
+    public ResponseEntity<ReservationResponseDto> createReservation(@Valid @RequestBody CreateReservationDto dto,
+                                                                    Authentication authentication) {
         String email = authentication.getName();
-        return createReservationUseCase.execute(email, dto)
-                .thenApply(response -> ResponseEntity.status(HttpStatus.CREATED).body(response));
+        ReservationResponseDto response = createReservationUseCase.execute(email, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/me")
-    public CompletableFuture<ResponseEntity<List<ReservationResponseDto>>> getMyReservationsAsCustomer(Authentication authentication) {
+    public ResponseEntity<List<ReservationResponseDto>> getMyReservationsAsCustomer(Authentication authentication) {
         String email = authentication.getName();
-        return getMyReservationsUseCase.getReservationAsCustomer(email)
-                .thenApply(response -> ResponseEntity.status(HttpStatus.OK).body(response));
+        List<ReservationResponseDto> response = getMyReservationsUseCase.getReservationAsCustomer(email);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

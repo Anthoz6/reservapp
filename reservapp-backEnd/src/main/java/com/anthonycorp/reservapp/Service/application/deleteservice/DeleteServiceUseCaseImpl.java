@@ -14,9 +14,8 @@ public class DeleteServiceUseCaseImpl implements DeleteServiceUseCase {
 
     private final ServiceRepository serviceRepository;
 
-    @Async
     @Override
-    public CompletableFuture<Void> execute(Long serviceId, String providerEmail) {
+    public void execute(Long serviceId, String providerEmail) {
         var service = serviceRepository.findById(serviceId)
                 .orElseThrow(() -> new ServiceNotFoundException("Service with ID " + serviceId + " not found"));
 
@@ -26,6 +25,5 @@ public class DeleteServiceUseCaseImpl implements DeleteServiceUseCase {
 
         serviceRepository.delete(service);
 
-        return CompletableFuture.completedFuture(null);
     }
 }

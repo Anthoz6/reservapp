@@ -26,9 +26,8 @@ public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
     private final UserRepository userRepository;
     private final ServiceMapper serviceMapper;
 
-    @Async
     @Override
-    public CompletableFuture<ServiceResponseDto> execute(CreateServiceDto createServiceDto, String providerEmail) {
+    public ServiceResponseDto execute(CreateServiceDto createServiceDto, String providerEmail) {
         UserEntity provider = userRepository.findUserByEmail(providerEmail)
                 .orElseThrow(() -> new UserNotFoundException("Provider not found"));
 
@@ -39,7 +38,6 @@ public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
                 .provider(provider)
                 .build();
 
-        ServiceResponseDto responseDto = serviceMapper.toDto(serviceRepository.save(serviceEntity));
-        return CompletableFuture.completedFuture(responseDto);
+        return serviceMapper.toDto(serviceRepository.save(serviceEntity));
     }
 }
