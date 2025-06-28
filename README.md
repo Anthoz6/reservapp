@@ -20,6 +20,7 @@ Se implementó control de acceso a los endpoints utilizando **Spring Security** 
 
 | Endpoint                                 | Método   | Rol permitido       | Descripción                                                  |
 |------------------------------------------|----------|----------------------|--------------------------------------------------------------|
+| `/auth/login`                                 | `POST`   | Público              | Iniciar sesión                                       |
 | `/users`                                 | `POST`   | `ADMIN`              | Crear un nuevo usuario                                       |
 | `/users/{userId}`                        | `PATCH`  | `ADMIN`              | Actualizar la información de un usuario                      |
 | `/users`                                 | `GET`    | Público              | Endpoint de prueba (Hello World)                             |
@@ -48,7 +49,7 @@ Los accesos están protegidos con anotaciones como:
 - ✅ Actualización parcial de usuarios con validación    
 - ✅ Módulo de reservas para `CUSTOMER` y `PROVIDER`
 - ✅ Control de acceso personalizado por recurso  
-- 🚧 [En progreso] Login con JWT
+- ✅ Login con JWT
 
 ---
 
@@ -57,16 +58,6 @@ Los accesos están protegidos con anotaciones como:
 - Las contraseñas están protegidas con `BCrypt`, por lo tanto deben ser validadas adecuadamente en login.  
 - La autenticación actual se realiza por email.  
 - El sistema está preparado para integrar autenticación por tokens (JWT).  
-
----
-
-## 🚀 Próximos pasos
-
-- [ ] Implementar autenticación JWT  
-- [ ] Añadir control de acceso por recurso (el usuario solo puede editar su propia información)  
-- [ ] Documentación automática con Swagger/OpenAPI  
-- [ ] Módulo de reservas y gestión de disponibilidad  
-- [ ] Pruebas automatizadas con JUnit y MockMvc  
 
 ---
 
