@@ -20,6 +20,7 @@ Se implementó control de acceso a los endpoints utilizando **Spring Security** 
 
 | Endpoint                                 | Método   | Rol permitido       | Descripción                                                  |
 |------------------------------------------|----------|----------------------|--------------------------------------------------------------|
+| `/auth/login`                                 | `POST`   | Público              | Iniciar sesión                                       |
 | `/users`                                 | `POST`   | `ADMIN`              | Crear un nuevo usuario                                       |
 | `/users/{userId}`                        | `PATCH`  | `ADMIN`              | Actualizar la información de un usuario                      |
 | `/users`                                 | `GET`    | Público              | Endpoint de prueba (Hello World)                             |
