@@ -23,13 +23,13 @@ public class UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
     private final UserRepository userRepository;
 
     @Override
-    public CompletableFuture<ServiceResponseDto> execute(Long serviceId, String providerEmail, UpdateServiceDto updateServiceDto) {
+    public ServiceResponseDto execute(Long serviceId, String providerEmail, UpdateServiceDto updateServiceDto) {
 
         var provider = userRepository.findUserByEmail(providerEmail)
                 .orElseThrow(() -> new UserNotFoundException("Provider not found"));
 
         ServiceEntity service = serviceRepository.findById(serviceId)
-                .orElseThrow(() -> new ServiceNotFoundException("Service with ID "+ serviceId + " not found"));
+                .orElseThrow(() -> new ServiceNotFoundException("Service with ID " + serviceId + " not found"));
 
         if (!service.getProvider().getId().equals(provider.getId())) {
             throw new IllegalArgumentException("You are not authorized to update this service");
@@ -39,8 +39,6 @@ public class UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
         Optional.ofNullable(updateServiceDto.getDescription()).ifPresent(service::setDescription);
         Optional.ofNullable(updateServiceDto.getPrice()).ifPresent(service::setPrice);
 
-        ServiceResponseDto responseDto = serviceMapper.toDto(serviceRepository.save(service));
-
-        return CompletableFuture.completedFuture(responseDto);
+        return serviceMapper.toDto(serviceRepository.save(service));
     }
 }

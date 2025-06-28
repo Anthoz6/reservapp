@@ -31,41 +31,41 @@ public class ServiceController {
     private final GetAllServicesUseCase getAllServicesUseCase;
 
     @PostMapping
-    public CompletableFuture<ResponseEntity<?>> createService(@RequestBody @Valid CreateServiceDto createServiceDto,
-                                                              Authentication authentication) {
+    public ResponseEntity<ServiceResponseDto> createService(@RequestBody @Valid CreateServiceDto createServiceDto,
+                                                            Authentication authentication) {
         String email = authentication.getName();
-        return createServiceUseCase.execute(createServiceDto, email)
-                .thenApply(response -> ResponseEntity.status(HttpStatus.CREATED).body(response));
+        ServiceResponseDto responseDto = createServiceUseCase.execute(createServiceDto, email);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @PatchMapping("/{serviceId}")
-    public CompletableFuture<ResponseEntity<ServiceResponseDto>> updateService(@PathVariable Long serviceId,
+    public ResponseEntity<ServiceResponseDto> updateService(@PathVariable Long serviceId,
                                                             @RequestBody @Valid UpdateServiceDto updateServiceDto,
                                                             Authentication authentication) {
         String providerEmail = authentication.getName();
-        return updateServiceUseCase.execute(serviceId, providerEmail, updateServiceDto)
-                .thenApply(services -> ResponseEntity.status(HttpStatus.OK).body(services));
+        ServiceResponseDto service = updateServiceUseCase.execute(serviceId, providerEmail, updateServiceDto);
+        return ResponseEntity.status(HttpStatus.OK).body(service);
     }
 
     @DeleteMapping("/{serviceId}")
-    public CompletableFuture<ResponseEntity<Void>> deleteService(@PathVariable Long serviceId,
+    public ResponseEntity<Void> deleteService(@PathVariable Long serviceId,
                                               Authentication authentication) {
-        String providerEmail = authentication.getName(); // Basic Auth
-        return deleteServiceUseCase.execute(serviceId, providerEmail)
-                .thenApply(voidResult -> ResponseEntity.noContent().build());
+        String providerEmail = authentication.getName();
+        deleteServiceUseCase.execute(serviceId, providerEmail);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/me")
-    public CompletableFuture<ResponseEntity<List<ServiceResponseDto>>> getByProvider(Authentication authentication) {
+    public ResponseEntity<List<ServiceResponseDto>> getByProvider(Authentication authentication) {
         String providerEmail = authentication.getName();
-        return getServicesByProviderUseCase.execute(providerEmail)
-                .thenApply(services -> ResponseEntity.status(HttpStatus.OK).body(services));
+        List<ServiceResponseDto> services = getServicesByProviderUseCase.execute(providerEmail);
+        return ResponseEntity.status(HttpStatus.OK).body(services);
     }
 
     @GetMapping()
-    public CompletableFuture<ResponseEntity<List<ServiceResponseDto>>> getAllServices() {
-        return getAllServicesUseCase.execute()
-                .thenApply(ResponseEntity::ok);
+    public ResponseEntity<List<ServiceResponseDto>> getAllServices() {
+        List<ServiceResponseDto> services = getAllServicesUseCase.execute();
+        return ResponseEntity.ok(services);
     }
 
 }

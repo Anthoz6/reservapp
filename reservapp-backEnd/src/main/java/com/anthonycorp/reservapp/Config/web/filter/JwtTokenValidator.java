@@ -45,6 +45,8 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 
             Collection<? extends GrantedAuthority> role = AuthorityUtils.commaSeparatedStringToAuthorityList(stringRole);
 
+            System.out.println("Authorities from token: " + role);
+
             SecurityContext contex = SecurityContextHolder.getContext();
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, role);
             contex.setAuthentication(authentication);

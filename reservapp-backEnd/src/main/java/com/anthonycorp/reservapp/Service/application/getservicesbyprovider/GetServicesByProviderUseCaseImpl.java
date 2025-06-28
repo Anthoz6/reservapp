@@ -24,20 +24,17 @@ public class GetServicesByProviderUseCaseImpl implements GetServicesByProviderUs
     private final ServiceMapper serviceMapper;
     private final UserRepository userRepository;
 
-    @Async
     @Override
-    public CompletableFuture<List<ServiceResponseDto>> execute(String email) {
+    public List<ServiceResponseDto> execute(String email) {
         UserEntity provider = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Authenticated user not found"));
 
-        if(!provider.getRoleEntity().getRole().equals(RoleEnum.PROVIDER)) {
-            throw new IllegalArgumentException("The user with ID "+ provider + " is not a PROVIDER");
+        if (!provider.getRoleEntity().getRole().equals(RoleEnum.PROVIDER)) {
+            throw new IllegalArgumentException("The user with ID " + provider + " is not a PROVIDER");
         }
 
-        List<ServiceResponseDto> responseDto = serviceRepository.findAllByProviderId(provider.getId()).stream()
+        return serviceRepository.findAllByProviderId(provider.getId()).stream()
                 .map(serviceMapper::toDto)
-                .collect(Collectors.toList());
-
-        return CompletableFuture.completedFuture(responseDto);
+                .toList();
     }
 }

@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface GetAllServicesUseCase {
-    CompletableFuture<List<ServiceResponseDto>> execute();
+    List<ServiceResponseDto> execute();
 }

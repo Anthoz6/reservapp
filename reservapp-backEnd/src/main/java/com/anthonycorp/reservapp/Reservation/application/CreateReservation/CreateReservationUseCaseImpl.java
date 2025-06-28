@@ -13,10 +13,8 @@ import com.anthonycorp.reservapp.User.infrastructure.exception.UserNotFoundExcep
 import com.anthonycorp.reservapp.User.infrastructure.model.UserEntity;
 import com.anthonycorp.reservapp.User.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +25,8 @@ public class CreateReservationUseCaseImpl implements CreateReservationUseCase {
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
 
-    @Async
     @Override
-    public CompletableFuture<ReservationResponseDto> execute(String email, CreateReservationDto dto) {
+    public ReservationResponseDto execute(String email, CreateReservationDto dto) {
 
         UserEntity customer = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Customer not found"));
@@ -48,7 +45,6 @@ public class CreateReservationUseCaseImpl implements CreateReservationUseCase {
                 .status(ReservationStatus.PENDING)
                 .build();
 
-        ReservationResponseDto responseDto = reservationMapper.toDto(reservationRepository.save(reservation));
-        return CompletableFuture.completedFuture(responseDto);
+        return reservationMapper.toDto(reservationRepository.save(reservation));
     }
 }

@@ -18,14 +18,14 @@ public class GetAllServicesUseCaseImpl implements GetAllServicesUseCase {
     private final ServiceRepository serviceRepository;
     private final ServiceMapper serviceMapper;
 
-    @Async
+
     @Override
-    public CompletableFuture<List<ServiceResponseDto>> execute() {
+    public List<ServiceResponseDto> execute() {
         List<ServiceResponseDto> serviceResponseDto = serviceRepository.findAll()
                 .stream()
                 .map(serviceMapper::toDto)
                 .collect(Collectors.toList());
 
-        return CompletableFuture.completedFuture(serviceResponseDto);
+        return serviceResponseDto;
     }
 }

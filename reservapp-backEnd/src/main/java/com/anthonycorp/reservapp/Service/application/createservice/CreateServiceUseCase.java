@@ -6,5 +6,5 @@ import com.anthonycorp.reservapp.Service.domain.response.ServiceResponseDto;
 import java.util.concurrent.CompletableFuture;
 
 public interface CreateServiceUseCase {
-    CompletableFuture<ServiceResponseDto> execute(CreateServiceDto createServiceDto, String providerEmail);
+    ServiceResponseDto execute(CreateServiceDto createServiceDto, String providerEmail);
 }
