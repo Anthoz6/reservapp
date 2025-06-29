@@ -5,11 +5,14 @@ import com.anthonycorp.reservapp.User.infrastructure.exception.EmailAlreadyInUse
 import com.anthonycorp.reservapp.User.infrastructure.exception.InvalidRole;
 import com.anthonycorp.reservapp.User.infrastructure.exception.RoleNotFound;
 import com.anthonycorp.reservapp.Utils.dto.ErrorDto;
+import com.anthonycorp.reservapp.Utils.exception.TokenExpiredException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -50,13 +53,19 @@ public class ControllerAdvice {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException e) {
+    public ResponseEntity<ErrorDto> handleValidationExceptions(MethodArgumentNotValidException e) {
         List<String> errors = e.getBindingResult()
                 .getAllErrors()
                 .stream()
                 .map(error -> error.getDefaultMessage())
                 .collect(Collectors.toList());
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(ErrorDto.builder()
+                .message("Validation failed")
+                .errorCode(ErrorCodes.BAD_REQUEST_ERROR)
+                .details(errors)
+                .timestamp(LocalDateTime.now())
+                .build(), HttpStatus.BAD_REQUEST);
     }
 
 
@@ -114,23 +123,33 @@ public class ControllerAdvice {
         );
     }
 
-//    @ExceptionHandler(JwtException.class)
-//    public ResponseEntity<ErrorDto> handleJwtException( JwtException e) {
-//        return buildErrorResponse(
-//                e.getMessage(),
-//                ErrorCodes.INVALID_TOKEN,
-//                HttpStatus.UNAUTHORIZED
-//        );
-//    }
-//
-//    @ExceptionHandler(ExpiredJwtException.class)
-//    public ResponseEntity<ErrorDto> handleExpiredJwtException( ExpiredJwtException e) {
-//        return buildErrorResponse(
-//                e.getMessage(),
-//                ErrorCodes.TOKEN_EXPIRED,
-//                HttpStatus.UNAUTHORIZED
-//        );
-//    }
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<ErrorDto> handleJwtVerificationException(JWTVerificationException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.INVALID_TOKEN,
+                HttpStatus.UNAUTHORIZED
+        );
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorDto> handleAccessDeniedException(AccessDeniedException e) {
+        return buildErrorResponse(
+                "You do not have permission to perform this action.",
+                ErrorCodes.ACCESS_DENIED,
+                HttpStatus.FORBIDDEN
+        );
+    }
+
+
+    @ExceptionHandler(TokenExpiredException .class)
+    public ResponseEntity<ErrorDto> handleExpiredJwtException( TokenExpiredException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.TOKEN_EXPIRED,
+                HttpStatus.UNAUTHORIZED
+        );
+    }
 
     @ExceptionHandler(MessagingException.class)
     public ResponseEntity<ErrorDto> handleMessagingException(MessagingException e) {
@@ -141,7 +160,6 @@ public class ControllerAdvice {
         );
     }
 
-
     // Method to create A Error dto
     private ResponseEntity<ErrorDto> buildErrorResponse(String errorMessage, ErrorCodes errorCode, HttpStatus httpStatus) {
         return new ResponseEntity<>(ErrorDto.builder()
@@ -150,5 +168,4 @@ public class ControllerAdvice {
                 .timestamp(LocalDateTime.now())
                 .build(), httpStatus); //return error dto with the http status
     }
-
 }

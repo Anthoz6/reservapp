@@ -1,6 +1,7 @@
 package com.anthonycorp.reservapp.Utils.web;
 
 
+import com.anthonycorp.reservapp.Utils.exception.TokenExpiredException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -59,7 +60,10 @@ public class JwtUtils {
             DecodedJWT decodedJWT = verifier.verify(token);
             return decodedJWT;
         }catch (JWTVerificationException exception) {
-            throw new JWTVerificationException("Token invalid, not Authorized");
+            if (exception.getMessage().contains("The Token has expired")) {
+                throw new TokenExpiredException("El token ha expirado, debes volver a iniciar sesión");
+            }
+            throw new JWTVerificationException("Token inválido o no autorizado");
         }
     }
 
