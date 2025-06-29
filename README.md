@@ -63,7 +63,7 @@ Los accesos están protegidos con anotaciones como:
 
 ## 🛠️ Tecnologías usadas
 
-- Java 21 
+- Java 17  
 - Spring Boot 3  
 - Spring Security  
 - JPA / Hibernate  
