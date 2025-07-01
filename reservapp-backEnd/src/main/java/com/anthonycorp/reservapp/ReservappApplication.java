@@ -9,10 +9,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.List;
 
 @SpringBootApplication
+@EnableAsync
 public class ReservappApplication {
 
 	public static void main(String[] args) {
@@ -68,7 +70,18 @@ public class ReservappApplication {
 					.roleEntity(roleEntityProvider)
 					.build();
 
-			userRepository.saveAll(List.of(userEntityAdmin, userEntityProvider, userEntityCustomer));
+			UserEntity userEntityAnthony = UserEntity.builder()
+					.name("Anthony")
+					.email("amestrar21@gmail.com")
+					.password("$2a$10$wWROayOlaj4DR8Aj4LwUl.UPi7gxNmLJKhL1m/z2B8PMt7s2EzQOq")
+					.enabled(true)
+					.accountNonExpired(true)
+					.accountNonLocked(true)
+					.credentialsNonExpired(true)
+					.roleEntity(roleEntityCustomer)
+					.build();
+
+			userRepository.saveAll(List.of(userEntityAdmin, userEntityProvider, userEntityCustomer, userEntityAnthony));
 		};
 	}
 

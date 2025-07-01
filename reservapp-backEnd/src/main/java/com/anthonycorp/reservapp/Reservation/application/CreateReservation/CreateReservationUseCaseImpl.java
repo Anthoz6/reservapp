@@ -1,5 +1,8 @@
 package com.anthonycorp.reservapp.Reservation.application.CreateReservation;
 
+import com.anthonycorp.reservapp.Mail.application.MailNotification.MailNotificationUseCase;
+import com.anthonycorp.reservapp.Mail.application.MailNotification.MailNotificationUseCaseImpl;
+import com.anthonycorp.reservapp.Mail.domain.Request.ReservationConfirmationDto;
 import com.anthonycorp.reservapp.Reservation.domain.request.CreateReservationDto;
 import com.anthonycorp.reservapp.Reservation.domain.response.ReservationResponseDto;
 import com.anthonycorp.reservapp.Reservation.domain.status.ReservationStatus;
@@ -24,6 +27,7 @@ public class CreateReservationUseCaseImpl implements CreateReservationUseCase {
     private final ServiceRepository serviceRepository;
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
+    private final MailNotificationUseCase mailNotificationUseCase;
 
     @Override
     public ReservationResponseDto execute(String email, CreateReservationDto dto) {
@@ -44,6 +48,18 @@ public class CreateReservationUseCaseImpl implements CreateReservationUseCase {
                 .time(dto.getTime())
                 .status(ReservationStatus.PENDING)
                 .build();
+
+        // Send mail
+        mailNotificationUseCase.sendReservationConfirmation(
+                new ReservationConfirmationDto(
+                        customer.getName(),
+                        customer.getEmail(),
+                        reservation.getId(),
+                        reservation.getDate(),
+                        reservation.getTime(),
+                        service.getTitle()
+                )
+        );
 
         return reservationMapper.toDto(reservationRepository.save(reservation));
     }
