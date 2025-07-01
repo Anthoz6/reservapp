@@ -62,7 +62,6 @@ Los accesos están protegidos con anotaciones como:
 
 - Las contraseñas están protegidas con `BCrypt`, por lo tanto deben ser validadas adecuadamente en login.  
 - La autenticación actual se realiza por email.  
-- El sistema está preparado para integrar autenticación por tokens (JWT).  
 
 ---
 
