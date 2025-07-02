@@ -53,11 +53,15 @@ Los accesos están protegidos con anotaciones como:
 
 ---
 
+## 📨 Confirmación via Gmail
+![image](https://github.com/user-attachments/assets/6aa0020e-a019-4eb6-bdbb-9c611dc1fa03)
+![image](https://github.com/user-attachments/assets/eca1bf63-440a-4085-97d5-e64502936888)
+
+
 ## 🧠 Consideraciones
 
 - Las contraseñas están protegidas con `BCrypt`, por lo tanto deben ser validadas adecuadamente en login.  
 - La autenticación actual se realiza por email.  
-- El sistema está preparado para integrar autenticación por tokens (JWT).  
 
 ---
 
