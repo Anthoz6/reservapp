@@ -4,6 +4,7 @@ import com.anthonycorp.reservapp.Service.infrastructure.exception.ServiceNotFoun
 import com.anthonycorp.reservapp.User.infrastructure.exception.EmailAlreadyInUse;
 import com.anthonycorp.reservapp.User.infrastructure.exception.InvalidRole;
 import com.anthonycorp.reservapp.User.infrastructure.exception.RoleNotFound;
+import com.anthonycorp.reservapp.User.infrastructure.exception.UserNotFoundException;
 import com.anthonycorp.reservapp.Utils.dto.ErrorDto;
 import com.anthonycorp.reservapp.Utils.exception.TokenExpiredException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -111,6 +112,15 @@ public class ControllerAdvice {
                 e.getMessage(),
                 ErrorCodes.ENTITY_NOT_FOUND_ERROR,
                 HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleUserNotFoundException(UserNotFoundException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.ENTITY_NOT_FOUND_ERROR,
+                HttpStatus.NOT_FOUND
         );
     }
 

@@ -1,6 +1,7 @@
 package com.anthonycorp.reservapp.User.infrastructure.controller;
 
 import com.anthonycorp.reservapp.User.application.CreateUser.CreateUserUseCase;
+import com.anthonycorp.reservapp.User.application.GetUser.GetUserByIdUseCase;
 import com.anthonycorp.reservapp.User.application.UpdateUser.UpdateUserUseCase;
 import com.anthonycorp.reservapp.User.domain.request.CreateUserDto;
 import com.anthonycorp.reservapp.User.domain.request.UpdateUserDto;
@@ -19,6 +20,7 @@ public class UserController {
 
     private final CreateUserUseCase createUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
+    private final GetUserByIdUseCase getUserByEmailUseCase;
 
     @PostMapping()
     public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
@@ -30,4 +32,8 @@ public class UserController {
         return  new ResponseEntity<>(updateUserUseCase.execute(userId, updateUserDto), HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> findUserById(@PathVariable Long userId) {
+        return new ResponseEntity<>(getUserByEmailUseCase.execute(userId), HttpStatus.OK);
+    }
 }
