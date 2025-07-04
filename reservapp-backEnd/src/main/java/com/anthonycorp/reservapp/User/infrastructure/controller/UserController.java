@@ -32,8 +32,4 @@ public class UserController {
         return  new ResponseEntity<>(updateUserUseCase.execute(userId, updateUserDto), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<?> findUserById(@PathVariable Long userId) {
-        return new ResponseEntity<>(getUserByEmailUseCase.execute(userId), HttpStatus.OK);
-    }
 }

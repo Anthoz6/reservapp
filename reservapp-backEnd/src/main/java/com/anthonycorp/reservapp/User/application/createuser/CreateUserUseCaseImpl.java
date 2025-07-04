@@ -32,7 +32,6 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         RoleEntity roleEntity = roleRepository.findById(createUserDto.getRolId())
                 .orElseThrow(() -> new RoleNotFound("Rol with id: "+ createUserDto.getRolId() + " Not found"));
         userEntity.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         userEntity.setRoleEntity(roleEntity);
         UserEntity savedUserEntity = userRepository.save(userEntity);
         return userMapper.toDto(savedUserEntity);

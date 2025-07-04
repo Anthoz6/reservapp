@@ -18,5 +18,4 @@ public class VirtualThreadConfig {
     public TomcatProtocolHandlerCustomizer<?> protocoloHandlerVirtualThread() {
         return protocolHandler -> protocolHandler.setExecutor(virtualThreadExecutor());
     }
-
 }
